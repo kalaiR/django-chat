@@ -12,7 +12,7 @@ def post(request):
     lasts.reverse()
     messages = ''
     for m in lasts:
-        messages += 'from %s:%s<br>' % (request.user.username, m.message)
+        messages += 'from %s:%s<br>' % (m.user.username, m.message)
     return {'success':True, 'messages':messages}
 
 def testpost(request):
