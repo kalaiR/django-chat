@@ -6,7 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('admin', 'djangodev@free.fr'),
 )
 
 MANAGERS = ADMINS
@@ -87,4 +87,7 @@ AUTHENTICATION_BACKENDS = (
  'django_chat.backends.passgroup.GroupBackend',
  'django.contrib.auth.backends.ModelBackend',
 )
+
+# seconds
+CONNECTED_AFTER_LAST_REQ = 60
 

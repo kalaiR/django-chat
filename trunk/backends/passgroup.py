@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django_chat.chat.models import UserData
 from django.conf import settings
 
 
@@ -21,6 +22,7 @@ class GroupBackend:
             for i in range(8):
                 temp_pass = temp_pass + choice(string.letters)
             user = User.objects.create_user(username, "", temp_pass)
+            UserData.objects.get_or_create(user=user)
             user.is_staff = False
             user.save()
             try:
