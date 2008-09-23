@@ -65,13 +65,7 @@
 			style="width:260px; background:#fff; position:absolute; top:30px; left:600px;"
 		>
 		<div id="messages" style="height:200px;">
-		Messages
-		<ul>
-		<li> toto
-		<li> toto
-		<li> toto
-		<li> toto
-		</ul>
+		Loading messages ...
 		</div>
 		
 		<div id="input">
@@ -90,6 +84,23 @@
 
 		// scan page for widgets and instantiate them
 		dojo.require("dojo.parser");	
+
+		function chat_update() {
+		    var wait = 30000
+			dojo.xhrGet({
+				url: "/test/update",
+				handleAs: "json",
+				load: function(data, ioargs){
+					dojo.byId("messages").innerHTML = data.users + '<hr>' + data.messages;
+					wait = data.wait_value * 1000
+				}
+			});
+			setTimeout(chat_update, wait)
+		}
+		
+		dojo.addOnLoad(function() {
+			setTimeout(chat_update, 2000)
+		});
 	</script>
 </body>
 {% endblock %}
