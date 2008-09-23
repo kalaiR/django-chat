@@ -5,12 +5,18 @@ from models import Post
 from models import UserData
 from datetime import datetime, timedelta
 from django.conf import settings
+from django.contrib.auth.models import User
 
 @json_response
 def post(request):
     msg = request.POST['text']
     Post.objects.create(user=request.user, message=msg)
     return get_posts(request)
+
+@json_response
+def update(request):
+    return get_posts(request)
+    
 
 def testpost(request):
     messages = get_posts(request)['messages']
@@ -33,14 +39,17 @@ def get_posts(request):
         if ud.last_req > before:
             userlist.append(ud.user.username)
         else:
-            if udata.connected:
-                udata.connected = False
-                udata.save()
+            if ud.connected:
+                ud.connected = False
+                ud.save()
     
     lasts = Post.objects.filter(user__groups__in=request.user.groups.all()).order_by('-date').distinct()
-    lasts = list(lasts[:10])
+    lasts = list(lasts[:5])
     lasts.reverse()
     messages = ''
     for m in lasts:
         messages += 'from %s:%s<br>' % (m.user.username, m.message)
-    return {'success':True, 'messages':messages, 'users':userlist}
+    return {'success':True,
+            'messages':messages,
+            'users':'online:%s' % ', '.join(userlist),
+            'wait_value':udata.refresh_period}
