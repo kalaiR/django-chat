@@ -88,7 +88,7 @@
 		function chat_update() {
 		    var wait = 30000
 			dojo.xhrGet({
-				url: "/test/update",
+				url: "./update",
 				handleAs: "json",
 				load: function(data, ioargs){
 					dojo.byId("messages").innerHTML = data.users + '<hr>' + data.messages;

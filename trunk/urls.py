@@ -22,8 +22,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
-    (r'^test$', login_required(direct_to_template), {'template':'test.html'}),
-    (r'^test/update/$', 'django_chat.chat.views.update'),
-    (r'^chat/post/$', 'django_chat.chat.views.post'),
+    (r'^$', login_required(direct_to_template), {'template':'test.html'}),
+    (r'^update/$', 'django_chat.chat.views.update'),
+    (r'^post/$', 'django_chat.chat.views.post'),
     (r'^testpost/$', 'django_chat.chat.views.testpost'),
 )
