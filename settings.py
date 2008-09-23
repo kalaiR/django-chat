@@ -88,6 +88,8 @@ AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
 )
 
+LOGIN_URL = '/chat/accounts/login/'
+
 # seconds
 CONNECTED_AFTER_LAST_REQ = 60
 
