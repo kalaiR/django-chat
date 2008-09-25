@@ -2,7 +2,7 @@
 from os.path import dirname, join 
 _dir = dirname(__file__)
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -92,4 +92,4 @@ LOGIN_URL = '/chat/accounts/login/'
 
 # seconds
 CONNECTED_AFTER_LAST_REQ = 60
-
+AUTH_PROFILE_MODULE = 'chat.userdata'

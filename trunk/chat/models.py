@@ -22,6 +22,9 @@ class UserData(models.Model):
     refresh_period = models.IntegerField(default=5)
     connected = models.BooleanField(default=False)
     
+    def avatar_url(self):
+        return 'http://goflow.alwaysdata.net/images/user16.png'
+    
     class Meta:
         verbose_name = 'User data'
         verbose_name_plural = 'Users data'
