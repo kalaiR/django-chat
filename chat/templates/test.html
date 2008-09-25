@@ -19,7 +19,7 @@
 				content:{text:form.text.value},
 				load:function(response, ioArgs){
 					if (response.success){
-						dojo.byId("messages").innerHTML = response.messages;
+						dojo.byId("messages").innerHTML = response.users + '<hr>' + response.messages;
 					} else {
 						dojo.byId("messages").innerHTML = "Error: "+response.error;
 					}
@@ -28,6 +28,7 @@
 					dojo.byId("messages").innerHTML = "Error sending data.";
 				}
 			});
+			form.text.value="";
 		}
 	</script>
 	
@@ -58,6 +59,13 @@
 	<li>then you will be able to chat with other users in the same room.
 	</ul>
 	
+	<h2>Links</h2>
+	<ul>
+	<li><a href="http://code.google.com/p/django-chat/" target=devsite>django-chat dev site</a>
+	<li><a href="browse/chat/post/" target=browse>browse posts in database</a>
+	</ul>
+	
+	
 	{% endblock %}
 
 		<div dojoType="dojox.layout.FloatingPane"  id="chatClient"
@@ -70,7 +78,7 @@
 		
 		<div id="input">
 		<form id="postForm" onsubmit="postSubmit(); return false;" action="/chat/post/">
-		<input dojoType="dijit.form.TextBox" name="text" value="hello !" />
+		<input dojoType="dijit.form.TextBox" name="text" value="" />
 	    <button dojoType="dijit.form.Button" type="submit">Send</button>
 	    </div>
     
@@ -93,9 +101,9 @@
 				load: function(data, ioargs){
 					dojo.byId("messages").innerHTML = data.users + '<hr>' + data.messages;
 					wait = data.wait_value * 1000
+					setTimeout(chat_update, wait)
 				}
 			});
-			setTimeout(chat_update, wait)
 		}
 		
 		dojo.addOnLoad(function() {

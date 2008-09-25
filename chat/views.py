@@ -48,7 +48,7 @@ def get_posts(request):
     lasts.reverse()
     messages = ''
     for m in lasts:
-        messages += 'from %s:%s<br>' % (m.user.username, m.message)
+        messages += '<img src=%s> <i>%s:</i> %s<br>' % (m.user.get_profile().avatar_url(), m.user.username, m.message)
     return {'success':True,
             'messages':messages,
             'users':'online:%s' % ', '.join(userlist),
