@@ -6,6 +6,7 @@ from models import UserData
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.template import RequestContext
 
 @json_response
 def post(request):
@@ -53,3 +54,11 @@ def get_posts(request):
             'messages':messages,
             'users':'online:%s' % ', '.join(userlist),
             'wait_value':udata.refresh_period}
+
+def noajax(request, template='chat.html'):
+    if request.method == 'POST':
+        msg = request.POST['text']
+        if len(msg) > 0:
+            Post.objects.create(user=request.user, message=msg)
+    context = get_posts(request)
+    return render_to_response(template, context, context_instance=RequestContext(request))
